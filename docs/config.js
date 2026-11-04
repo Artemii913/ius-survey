@@ -1,6 +1,6 @@
 window.SURVEY_CONFIG = {
   version: 'ius-27-v1',
-  endpoint: '',
+  endpoint: 'https://script.google.com/macros/s/AKfycbzu7OQycy5nk99wGKh2P9ZVbGE0Xbmpjyrx5C5rhtn12UCeK034X8kFt0mBEmU126tsnQ/exec',
   title: 'Как вы переносите неопределённость',
   owner: 'Команда проекта «Emotion System»',
   contact: '',
