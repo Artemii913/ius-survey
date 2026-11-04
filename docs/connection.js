@@ -8,7 +8,7 @@
     try {
       for (let attempt=1; attempt<=2; attempt++) {
         const response = await fetch(window.SURVEY_CONFIG.endpoint, {method:'POST',body:new URLSearchParams({payload:JSON.stringify(payload)}),credentials:'omit',redirect:'follow',signal:AbortSignal.timeout(30000)});
-        if (!response.ok) throw new Error('HTTP ' + response.status);
+        if (!response.ok) throw new Error('HTTP ' + response.status + ', ' + response.url + '\n' + (await response.text()).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').slice(0,1200));
         const receipt = await response.json();
         if(receipt.ok!==true || receipt.id!==payload.id || receipt.total!==81 || receipt.bandIndex!==1) throw new Error('Сервер не подтвердил ожидаемый результат.');
         status.textContent += '\nПопытка '+attempt+': сервер подтвердил запись, 81 из 135, средний диапазон.';
@@ -18,3 +18,4 @@
     finally {button.disabled=false;}
   });
 })();
+
