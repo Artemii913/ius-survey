@@ -77,7 +77,8 @@
     const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(),30000);
     try {
       const payload = {id:snapshot.id,version:snapshot.version,clientDate:snapshot.clientDate,name:snapshot.name,age:snapshot.age,sex:snapshot.sex,consent:snapshot.consent,website:snapshot.website,answers:snapshot.answers,displayText:snapshot.displayText};
-      const response = await fetch(cfg.endpoint,{method:'POST',body:new URLSearchParams({payload:JSON.stringify(payload)}),redirect:'follow',credentials:'omit',signal:controller.signal});
+      const body = new FormData(); body.append('payload',JSON.stringify(payload));
+      const response = await fetch(cfg.endpoint,{method:'POST',body,redirect:'follow',credentials:'omit',signal:controller.signal});
       if (!response.ok) throw new Error('HTTP '+response.status);
       const receipt = await response.json();
       if (receipt.ok !== true || receipt.id !== snapshot.id || receipt.total !== snapshot.result.total || receipt.bandIndex !== snapshot.result.bandIndex) throw new Error('Invalid receipt');
