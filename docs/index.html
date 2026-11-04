@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Анкета о переносимости неопределённости. 27 утверждений, результат сразу после заполнения.">
+  <meta name="referrer" content="no-referrer">
+  <title>Неопределённость · IUS</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="config.js"></script>
+  <script defer src="scoring.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к анкете</a>
+  <header class="masthead"><a href="./" aria-label="На главную">emotion<span>system</span></a><span>Самонаблюдение / IUS</span></header>
+  <main id="main">
+    <section class="intro">
+      <p class="eyebrow">ШКАЛА IUS · 27 УТВЕРЖДЕНИЙ · ОКОЛО 5 МИНУТ</p>
+      <h1>Как вы переносите<br><em>неопределённость</em></h1>
+      <p class="lead">Отметьте, насколько каждое утверждение свойственно вам. Выберите один ответ в каждой строке — результат появится сразу.</p>
+      <p class="note">Имя, возраст и пол не влияют на результат.</p>
+    </section>
+    <section id="unavailable" class="notice" hidden>
+      <h2>Анкета готовится к публикации</h2>
+      <p>Сейчас мы проверяем формулировки и подключение отправки. Пожалуйста, вернитесь позже.</p>
+    </section>
+    <form id="survey" hidden>
+      <section class="personal" aria-labelledby="personal-title">
+        <div class="section-heading"><span>О вас</span><h2 id="personal-title">Перед началом</h2></div>
+        <div class="fields">
+          <label>Имя<input name="participantName" autocomplete="given-name" maxlength="100" required placeholder="Как к вам обращаться"></label>
+          <label>Возраст<input name="age" type="number" inputmode="numeric" min="1" max="120" step="1" required placeholder="Полных лет"></label>
+          <label>Пол<select name="sex" required><option value="">Выберите</option><option value="female">Женский</option><option value="male">Мужской</option><option value="other">Другой</option><option value="unspecified">Предпочитаю не указывать</option></select></label>
+        </div>
+      </section>
+      <div class="progress-header"><span id="progress-text">Отвечено 0 из 27</span><span>Выберите один вариант</span></div>
+      <progress id="progress" max="27" value="0" aria-label="Заполнение анкеты"></progress>
+      <section id="questions" aria-label="Утверждения анкеты"></section>
+      <section class="submit-section">
+        <label class="consent"><input type="checkbox" name="consent" required><span>Я согласен(на) передать организатору имя, возраст, пол, все ответы и результат для обработки анкеты. Данные будут сохранены в Google Таблице. <a href="#privacy">Подробнее</a></span></label>
+        <label class="honeypot" aria-hidden="true">Оставьте пустым<input name="website" tabindex="-1" autocomplete="off"></label>
+        <button class="primary" id="submit" type="submit">Узнать результат <span aria-hidden="true">↗</span></button>
+        <p id="form-message" role="alert"></p>
+      </section>
+    </form>
+    <section id="result" class="result" tabindex="-1" aria-labelledby="result-title" hidden>
+      <p class="eyebrow">ВАШ РЕЗУЛЬТАТ</p>
+      <h2 id="result-title"></h2>
+      <p class="score"><strong id="score"></strong><span>из 135</span></p>
+      <div id="segments" class="segments" aria-hidden="true"></div>
+      <div class="scale-labels"><span>0</span><span>135</span></div>
+      <p id="interpretation"></p>
+      <p class="note">Результат не является диагнозом. Диапазоны ориентировочные, диагностические пороги здесь не используются.</p>
+      <div class="delivery"><span id="delivery-status" role="status" aria-live="polite"></span><button id="retry" class="secondary" type="button" hidden>Повторить отправку</button></div>
+      <div class="actions"><button id="copy" class="secondary" type="button">Скопировать результат</button><button id="download" class="secondary" type="button">Сохранить ответы</button><button id="again" class="text-button" type="button">Пройти ещё раз</button></div>
+    </section>
+    <section id="privacy" class="privacy">
+      <h2>Что происходит с ответами</h2>
+      <p>После нажатия «Узнать результат» имя, возраст, пол, 27 ответов, сумма баллов, уровень и дата отправляются организатору в закрытую Google Таблицу. Подтверждение сохранения появится рядом с результатом.</p>
+      <p>Ответы не сохраняются в памяти браузера после закрытия страницы. При сбое отправки можно повторить её или сохранить результат файлом.</p>
+      <p id="owner"></p><p id="contact"></p>
+    </section>
+  </main>
+  <footer><span>Emotion System</span><span>Наблюдать. Замечать. Понимать себя.</span></footer>
+</body>
+</html>

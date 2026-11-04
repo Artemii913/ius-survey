@@ -1,0 +1,6 @@
+.clasp.json
+.clasprc.json
+node_modules/
+test-results/
+.env
+*.log
