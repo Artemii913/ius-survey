@@ -3,6 +3,7 @@
   const cfg = window.SURVEY_CONFIG;
   const $ = id => document.getElementById(id);
   const form = $('survey');
+  $('result-disclaimer').textContent = cfg.disclaimer;
   const sexLabels = {female:'Женский',male:'Мужской',other:'Другой',unspecified:'Предпочитаю не указывать'};
   let snapshot = null, busy = false, sent = false;
   $('owner').textContent = 'Организатор: ' + cfg.owner;
@@ -35,7 +36,7 @@
   function fullText(data) {
     const lines = [cfg.title, 'Дата: '+new Date(data.clientDate).toLocaleString('ru-RU'), 'Имя: '+data.name, 'Возраст: '+data.age, 'Пол: '+sexLabels[data.sex], `Результат: ${data.result.total} из 135`, data.band.level, data.band.text, '', 'Ответы:'];
     cfg.questions.forEach((q,i) => lines.push(`${i+1}. ${q} — ${cfg.options[data.answers[i]-1]} (${data.answers[i]})`));
-    lines.push('', 'Результат не является диагнозом. Диапазоны ориентировочные.');
+    lines.push('', cfg.disclaimer);
     return lines.join('\n');
   }
   form.addEventListener('submit', event => {
