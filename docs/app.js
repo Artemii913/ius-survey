@@ -4,7 +4,7 @@
   const $ = id => document.getElementById(id);
   const form = $('survey');
   $('result-disclaimer').textContent = cfg.disclaimer;
-  const sexLabels = {female:'Женский',male:'Мужской',other:'Другой',unspecified:'Предпочитаю не указывать'};
+  const sexLabels = {female:'Женщина',male:'Мужчина'};
   let snapshot = null, busy = false, sent = false;
   $('owner').textContent = 'Организатор: ' + cfg.owner;
   $('contact').textContent = cfg.contact ? 'По вопросам обработки и удаления ответов: ' + cfg.contact : '';
