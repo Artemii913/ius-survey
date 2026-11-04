@@ -29,21 +29,22 @@ test('server validates demographics, consent, version and malicious sex keys',()
   assert.equal(ctx.safeText_('  +1'),"'  +1");assert.equal(ctx.safeText_('Анна'),'Анна');
 });
 function harness(){
-  const rows=[['Дата получения','ID отправки','Версия','Имя','Возраст','Пол',...Array.from({length:27},(_,i)=>'Вопрос '+(i+1)),'Сумма','Уровень','Полный результат','Дата на устройстве','Согласие','Хеш отправки']];let locked=false,fail=false;
-  const sheet={getLastRow:()=>rows.length,getMaxRows:()=>1000,getRange:(r,c,n=1,m=1)=>({
+  const rows=[['Дата получения','ID отправки','Версия','Имя','Возраст','Пол',...Array.from({length:27},(_,i)=>'Вопрос '+(i+1)),'Сумма','Уровень','Полный результат','Дата на устройстве','Согласие','Хеш отправки']];let locked=false,fail=false;const forcedHeights=[];
+  const sheet={getLastRow:()=>rows.length,getMaxRows:()=>1000,setRowHeightsForced:(...args)=>forcedHeights.push(args),getRange:(r,c,n=1,m=1)=>({
     getValues:()=>Array.from({length:n},(_,i)=>(rows[r+i-1]||[]).slice(c-1,c-1+m)),
     getValue:()=>rows[r-1]?.[c-1],
     setValues:values=>{if(fail)throw new Error('Storage unavailable');assert.equal(locked,true);values.forEach((v,i)=>{rows[r+i-1]=v;});},
-    setNumberFormat:()=>{},createTextFinder:needle=>({matchEntireCell(){return this;},matchCase(){return this;},findNext(){const i=rows.findIndex((row,i)=>i>0&&row[1]===needle);return i<0?null:{getRow:()=>i+1};}})
+    setNumberFormat:()=>{},setWrapStrategy(value){assert.equal(value,'CLIP');return this;},setVerticalAlignment(value){assert.equal(value,'middle');return this;},createTextFinder:needle=>({matchEntireCell(){return this;},matchCase(){return this;},findNext(){const i=rows.findIndex((row,i)=>i>0&&row[1]===needle);return i<0?null:{getRow:()=>i+1};}})
   })};
-  const context={PropertiesService:{getScriptProperties:()=>({getProperty:()=> 'test-sheet'})},SpreadsheetApp:{openById:()=>({getSheetByName:()=>sheet}),flush:()=>{}},LockService:{getScriptLock:()=>({waitLock:()=>{locked=true;},releaseLock:()=>{locked=false;}})},Utilities:{DigestAlgorithm:{SHA_256:'sha256'},computeDigest:(_,s)=>require('node:crypto').createHash('sha256').update(s).digest(),base64EncodeWebSafe:b=>Buffer.from(b).toString('base64url')},ContentService:{MimeType:{JSON:'json'},createTextOutput:s=>({setMimeType:()=>JSON.parse(s)})}};
+  const context={PropertiesService:{getScriptProperties:()=>({getProperty:()=> 'test-sheet'})},SpreadsheetApp:{WrapStrategy:{CLIP:'CLIP'},openById:()=>({getSheetByName:()=>sheet}),flush:()=>{}},LockService:{getScriptLock:()=>({waitLock:()=>{locked=true;},releaseLock:()=>{locked=false;}})},Utilities:{DigestAlgorithm:{SHA_256:'sha256'},computeDigest:(_,s)=>require('node:crypto').createHash('sha256').update(s).digest(),base64EncodeWebSafe:b=>Buffer.from(b).toString('base64url')},ContentService:{MimeType:{JSON:'json'},createTextOutput:s=>({setMimeType:()=>JSON.parse(s)})}};
   const ctx=vm.createContext(context);vm.runInContext(backend,ctx);
-  return {rows,ctx,send:p=>ctx.doPost({parameter:{payload:JSON.stringify(p)}}),setFailure:()=>{fail=true;},isLocked:()=>locked};
+  return {rows,ctx,forcedHeights,send:p=>ctx.doPost({parameter:{payload:JSON.stringify(p)}}),setFailure:()=>{fail=true;},isLocked:()=>locked};
 }
 test('writes entire response, computes score server side, prevents formula injection and deduplicates retries',()=>{
   const h=harness(),p={...payload(),name:'=1+1',total:999};
   assert.equal(h.send(p).ok,true);assert.equal(h.rows.length,2);assert.equal(h.rows[1].length,39);
   assert.equal(h.rows[1][3],"'=1+1");assert.deepEqual(Array.from(h.rows[1].slice(6,33)),p.answers);assert.equal(h.rows[1][33],81);assert.equal(h.rows[1][35],p.displayText);
+  assert.deepEqual(h.forcedHeights,[[2,1,30]]);
   assert.equal(h.send(p).ok,true);assert.equal(h.rows.length,2);
   assert.equal(h.send({...p,age:30}).ok,false);assert.equal(h.rows.length,2);assert.equal(h.isLocked(),false);
 });

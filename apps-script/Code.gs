@@ -65,6 +65,8 @@ function doPost(e) {
       if(last>=sheet.getMaxRows())sheet.insertRowsAfter(sheet.getMaxRows(),100);
       sheet.getRange(last+1,1,1,row.length).setValues([row]);
       sheet.getRange(last+1,1).setNumberFormat('dd.mm.yyyy hh:mm:ss');
+      sheet.getRange(last+1,1,1,row.length).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP).setVerticalAlignment('middle');
+      sheet.setRowHeightsForced(last+1,1,30);
       SpreadsheetApp.flush();
     }
     return json_({ok:true,id:p.id,total:result.total,bandIndex:result.bandIndex});
