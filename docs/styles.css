@@ -52,3 +52,39 @@ main{max-width:1200px}.intro{max-width:1100px;padding:60px 0 65px}.intro .eyebro
 .jump-figure{position:absolute;right:0;top:40px;width:155px;height:175px;opacity:.65;pointer-events:none}.jump-figure .head{position:absolute;width:30px;height:30px;top:0;left:70px;background:#d6a2fb;border-radius:50%}.jump-figure .limbs{position:absolute;top:40px;left:35px;width:85px;height:25px;background:#d6a2fb;border-radius:25px;transform:rotate(36deg)}.jump-figure .limbs:before,.jump-figure .limbs:after{content:"";position:absolute;background:#d6a2fb;border-radius:25px;width:80px;height:20px}.jump-figure .limbs:before{top:29px;left:-12px;transform:rotate(-72deg)}.jump-figure .limbs:after{top:35px;left:30px;transform:rotate(44deg)}.jump-figure .step{position:absolute;bottom:0;width:50px;height:38px;background:#d6a2fb}.jump-figure .step-one{left:0}.jump-figure .step-two{right:0;bottom:-25px}
 body:before{background:#6c1fb6;right:auto;left:-155px;top:780px;width:230px;height:230px}body:after{border:0;background:#ffbb19;left:auto;right:-170px;top:900px;width:270px;height:270px}
 @media(max-width:700px){.masthead{padding:18px 16px}.brand-group{gap:10px}.mars-logo-img{width:190px;max-width:58vw}.project-logo-img{width:65px;height:65px}.brand-divider{height:52px;width:2px}.intro{padding:65px 0 40px}.intro .eyebrow{font-size:12px;padding:10px 14px}.intro h1{font-size:clamp(48px,12vw,72px);letter-spacing:-2px;margin-top:28px}.intro-subtitle{font-size:20px}.intro .lead{font-size:16px}.start-link{font-size:20px;padding:17px 20px}.time-hint{font-size:16px;margin-bottom:35px}.feature-strip{grid-template-columns:1fr;border-radius:24px;padding:12px 18px}.feature{padding:20px 8px}.feature+.feature{border-left:0;border-top:1px solid #ead5f8}.feature-icon{width:54px;height:54px;font-size:27px}.feature strong{font-size:18px}.feature>span:last-child{font-size:14px}.corner-shapes-top{transform:scale(.55);transform-origin:top right;right:-45px;top:-100px}.jump-figure{transform:scale(.48);transform-origin:top right;top:0;right:-12px;opacity:.38}}
+
+/* Refined reference-matched responsive presentation */
+:root{--ink:#290b48;--accent:#f54b24;--line:#e9daf0}
+body{background:#fff;overflow-x:hidden}
+.masthead{position:relative;z-index:3;max-width:1120px;padding:26px 26px 0}
+.brand-group{gap:22px}.mars-logo-img{width:280px;max-width:none;aspect-ratio:280/135;object-fit:contain}.project-logo-img{width:112px;height:112px;object-fit:contain}.brand-divider{height:88px;background:#572199}
+main{max-width:1120px;padding:0 28px}
+.intro{padding:54px 0 62px;isolation:isolate}
+.intro .eyebrow{font-size:17px;padding:11px 28px;margin:0 0 20px;border-radius:999px;background:#ecd4fa;color:#41136e}
+.intro h1{font-size:clamp(60px,9.5vw,112px);line-height:1.04;letter-spacing:-4px;margin:18px 0 4px}
+.intro-subtitle{font-size:clamp(24px,3.1vw,35px);font-weight:700;margin:0 auto 28px;color:#571c8a}
+.intro .lead{max-width:900px;font-size:clamp(18px,2.1vw,22px);line-height:1.5;margin:0 auto 24px;color:#2d1643}
+.start-link{margin:15px auto 0;min-width:320px;max-width:460px;background:#f94b24;border-radius:999px;padding:18px 34px;font-size:24px;box-shadow:0 14px 30px #f04a2719}
+.time-hint{margin:18px auto 36px;font-size:19px}.time-hint span{font-size:28px}
+.feature-strip{max-width:1050px;border-radius:30px;padding:22px 14px;box-shadow:0 12px 28px #68219e12}
+.feature{padding:4px 16px}.feature-icon{width:64px;height:64px;font-size:30px;font-weight:800;background:#f1e0fb;color:#5b1897}.feature strong{font-size:19px}.feature>span:last-child{font-size:14px}
+.corner-shapes-top{right:-80px;top:-170px;transform:scale(.72);transform-origin:top right;z-index:-1}
+.jump-figure{position:absolute;right:12px;top:12px;width:130px;height:125px;opacity:.65;z-index:-1;pointer-events:none}
+.intro:before{right:9%;top:12px;width:15px;height:15px}.intro:after{left:3%;bottom:115px;width:16px;height:16px}
+body:before{width:170px;height:170px;left:-105px;top:790px;background:#6823ad;z-index:-1}
+body:after{width:175px;height:175px;right:-110px;top:850px;background:#ffbd22;z-index:-1}
+.personal,.result,.notice{border-top:4px solid #6724a8}
+.question{border-top-color:#eee4f2}.question legend{color:#2d1643}.choice{border-radius:14px}.choice:has(input:checked){background:#f4eafb}
+.primary{background:#f94b24;box-shadow:0 9px 22px #f94b241c}
+@media(max-width:700px){
+.masthead{padding:18px 18px 0}.brand-group{gap:10px;width:100%}.mars-logo-img{width:calc(min(49vw,190px));max-width:49vw;height:auto;aspect-ratio:280/135}.brand-divider{height:52px;flex:none;width:2px}.project-logo-img{width:70px;height:70px}
+main{padding:0 18px}.intro{padding:52px 0 34px}.intro .eyebrow{font-size:11px;line-height:1.3;padding:11px 15px;max-width:100%;margin:0 auto 18px}
+.intro h1{font-size:clamp(48px,11vw,66px);letter-spacing:-2px;line-height:1.06;margin:20px 0 6px}
+.intro-subtitle{font-size:clamp(18px,4.5vw,22px);margin:0 0 23px}.intro .lead{font-size:16px;line-height:1.52;max-width:380px}
+.start-link{min-width:0;width:100%;max-width:340px;font-size:20px;padding:16px 20px;margin-top:12px}
+.time-hint{font-size:15px;margin:16px auto 30px}.time-hint span{font-size:23px}
+.feature-strip{border-radius:24px;padding:8px 16px;max-width:400px}.feature{padding:17px 8px;gap:5px}.feature-icon{width:50px;height:50px;font-size:22px}.feature strong{font-size:17px}.feature>span:last-child{font-size:13px}
+.corner-shapes-top{right:-65px;top:-125px;transform:scale(.32)}.jump-figure{width:70px;height:70px;right:-12px;top:-5px;opacity:.42}
+.intro:before{right:8%;top:15px}.intro:after{bottom:45px;left:-8px}
+body:before{width:120px;height:120px;left:-86px;top:780px}body:after{width:115px;height:115px;right:-82px;top:890px}
+}
